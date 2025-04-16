@@ -1,130 +1,184 @@
-import { Button } from "@/components/ui/button"
-import Link from "next/link"
-import Image from "next/image"
-import FeaturedProducts from "@/components/featured-products"
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
+import Image from "next/image";
+import { ArrowRight, PenToolIcon as Tool, Truck, Users } from "lucide-react"; // Assuming PenToolIcon is aliased as Tool
 
 export default function Home() {
   return (
-    <div className="container mx-auto px-4">
+    <div className="flex flex-col">
       {/* Hero Section */}
-      <section className="py-12 md:py-20">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 items-center">
-          <div>
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">Quality Hardware for Your Manufacturing Needs</h1>
-            <p className="text-lg text-gray-600 mb-6">
-              We provide high-quality hardware components and manufacturing solutions for businesses of all sizes.
-            </p>
-            <div className="flex flex-wrap gap-4">
-              <Button asChild size="lg">
-                <Link href="/products">Browse Products</Link>
-              </Button>
-              <Button asChild variant="outline" size="lg">
-                <Link href="/about">Learn More</Link>
-              </Button>
+      <section className="relative bg-gradient-to-r from-gray-900 to-gray-800 py-20 text-white">
+        <div className="container mx-auto px-4 py-16 md:py-24">
+          <div className="grid gap-8 md:grid-cols-2 md:gap-12">
+            <div className="flex flex-col justify-center space-y-4">
+              <h1 className="text-4xl font-bold tracking-tight sm:text-5xl md:text-6xl">
+                Quality Hardware Solutions for Your Business
+              </h1>
+              <p className="text-xl text-gray-300">
+                Om Sai Enterprises provides premium hardware products with reliable service and competitive pricing.
+              </p>
+              <div className="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
+                <Button asChild size="lg" className="bg-orange-600 hover:bg-orange-700">
+                  <Link href="/products">
+                    Browse Products <ArrowRight className="ml-2 h-5 w-5" />
+                  </Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="border-white text-white hover:bg-white hover:text-gray-900"
+                >
+                  <Link href="/about">Learn More</Link>
+                </Button>
+              </div>
             </div>
-          </div>
-          <div className="relative h-[300px] md:h-[400px] rounded-lg overflow-hidden">
-            <Image
-              src="/placeholder.svg?height=400&width=600"
-              alt="Hardware manufacturing"
-              fill
-              className="object-cover"
-              priority
-            />
+            <div className="flex items-center justify-center">
+              <Image
+                src="/logo2.png" // Make sure this image exists in public/
+                alt="Hardware products showcase"
+                width={500}
+                height={400}
+                className="rounded-lg shadow-xl"
+                priority // Added priority for LCP element
+              />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* Featured Products */}
-      <section className="py-12">
-        <h2 className="text-3xl font-bold mb-8">Featured Products</h2>
-        <FeaturedProducts />
+      {/* Features Section */}
+      <section className="bg-white py-16">
+        <div className="container mx-auto px-4">
+          <div className="mb-12 text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">
+              Why Choose Om Sai Enterprises?
+            </h2>
+            <p className="mt-4 text-lg text-gray-600">
+              We pride ourselves on quality, reliability, and exceptional service
+            </p>
+          </div>
+          <div className="grid gap-8 md:grid-cols-3">
+            <div className="flex flex-col items-center rounded-lg bg-gray-50 p-6 text-center shadow-md">
+              <div className="mb-4 rounded-full bg-orange-100 p-3">
+                <Tool className="h-8 w-8 text-orange-600" />
+              </div>
+              <h3 className="mb-2 text-xl font-semibold">Premium Quality</h3>
+              <p className="text-gray-600">
+                All our products meet the highest industry standards and come with quality assurance.
+              </p>
+            </div>
+            <div className="flex flex-col items-center rounded-lg bg-gray-50 p-6 text-center shadow-md">
+              <div className="mb-4 rounded-full bg-orange-100 p-3">
+                <Truck className="h-8 w-8 text-orange-600" />
+              </div>
+              <h3 className="mb-2 text-xl font-semibold">Fast Delivery</h3>
+              <p className="text-gray-600">
+                We ensure timely delivery of all orders with our efficient logistics network.
+              </p>
+            </div>
+            <div className="flex flex-col items-center rounded-lg bg-gray-50 p-6 text-center shadow-md">
+              <div className="mb-4 rounded-full bg-orange-100 p-3">
+                <Users className="h-8 w-8 text-orange-600" />
+              </div>
+              <h3 className="mb-2 text-xl font-semibold">Customer Support</h3>
+              <p className="text-gray-600">
+                Our dedicated team is always ready to assist you with any queries or concerns.
+              </p>
+            </div>
+          </div>
+        </div>
       </section>
 
-      {/* Services */}
-      <section className="py-12 bg-gray-50 -mx-4 px-4">
-        <div className="container mx-auto">
-          <h2 className="text-3xl font-bold mb-8 text-center">Our Services</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {/* === Popular Products Section Removed === */}
+
+      {/* Testimonials Section */}
+      <section className="bg-white py-16">
+        <div className="container mx-auto px-4">
+          <div className="mb-12 text-center">
+            <h2 className="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl">What Our Customers Say</h2>
+            <p className="mt-4 text-lg text-gray-600">
+              Don't just take our word for it - hear from our satisfied customers
+            </p>
+          </div>
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
             {[
               {
-                title: "Custom Manufacturing",
-                description: "Tailored hardware solutions for your specific needs",
-                icon: "Settings",
+                name: "Sainath Reddy",
+                company: "Venkateswara Enterprises",
+                quote:
+                  "Om Sai Enterprises has been our trusted hardware supplier for over 3 years. Their products are reliable and their service is exceptional.",
+                avatarInitial: "S",
               },
               {
-                title: "Wholesale Supply",
-                description: "Bulk orders at competitive prices for businesses",
-                icon: "Package",
+                name: "Vijay Bhaskhar",
+                company: "Vijay Industries",
+                quote:
+                  "The quality of hardware products from Om Sai Enterprises is unmatched. We've never had any issues with their supplies.",
+                avatarInitial: "V",
               },
               {
-                title: "Technical Support",
-                description: "24/7 expert assistance for all your hardware needs",
-                icon: "HeadsetHelp",
+                name: "Ramana Reddy",
+                company: "Sri Krishna Engineering Works",
+                quote:
+                  "As a retailer, I appreciate the consistent quality and competitive pricing offered by Om Sai Enterprises. Highly recommended!",
+                 avatarInitial: "R",
               },
-            ].map((service, index) => (
-              <div key={index} className="bg-white p-6 rounded-lg shadow-md">
-                <div className="w-12 h-12 bg-primary/10 rounded-full flex items-center justify-center mb-4">
-                  <span className="text-primary text-xl">
-                    {service.icon === "Settings" && "⚙️"}
-                    {service.icon === "Package" && "📦"}
-                    {service.icon === "HeadsetHelp" && "🎧"}
-                  </span>
+            ].map((testimonial, index) => (
+              <div key={index} className="rounded-lg bg-gray-50 p-6 shadow-md">
+                <div className="mb-4 text-orange-600">
+                  {Array(5)
+                    .fill(0)
+                    .map((_, i) => (
+                      <span key={i} className="text-xl">
+                        ★
+                      </span>
+                    ))}
                 </div>
-                <h3 className="text-xl font-semibold mb-2">{service.title}</h3>
-                <p className="text-gray-600">{service.description}</p>
+                <p className="mb-4 italic text-gray-600">"{testimonial.quote}"</p>
+                <div className="flex items-center">
+                  <div className="mr-4 flex h-12 w-12 items-center justify-center overflow-hidden rounded-full bg-gray-300 text-gray-600">
+                    <span className="text-xl font-medium">{testimonial.avatarInitial}</span>
+                  </div>
+                  <div>
+                    <h4 className="font-semibold">{testimonial.name}</h4>
+                    <p className="text-sm text-gray-600">{testimonial.company}</p>
+                  </div>
+                </div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Testimonials */}
-      <section className="py-12">
-        <h2 className="text-3xl font-bold mb-8 text-center">What Our Clients Say</h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {[
-            {
-              name: "John Smith",
-              company: "ABC Manufacturing",
-              quote: "The quality of hardware components we received exceeded our expectations. Highly recommended!",
-            },
-            {
-              name: "Sarah Johnson",
-              company: "XYZ Industries",
-              quote: "Their custom manufacturing service helped us solve a complex production challenge.",
-            },
-            {
-              name: "Michael Brown",
-              company: "Global Tech Solutions",
-              quote:
-                "Reliable products, on-time delivery, and excellent customer service. A trusted partner for our business.",
-            },
-          ].map((testimonial, index) => (
-            <div key={index} className="bg-gray-50 p-6 rounded-lg">
-              <p className="italic mb-4">"{testimonial.quote}"</p>
-              <div>
-                <p className="font-semibold">{testimonial.name}</p>
-                <p className="text-sm text-gray-600">{testimonial.company}</p>
-              </div>
+      {/* CTA Section */}
+      <section className="bg-orange-600 py-16 text-white">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col items-center justify-between gap-8 md:flex-row">
+            <div>
+              <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">Ready to get started?</h2>
+              <p className="mt-4 text-lg text-orange-100">
+                Register now to browse our full catalog and place your first order.
+              </p>
             </div>
-          ))}
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-12 bg-primary text-white -mx-4 px-4 mt-12">
-        <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-4">Ready to Get Started?</h2>
-          <p className="text-lg mb-6 max-w-2xl mx-auto">
-            Join hundreds of businesses that trust us for their hardware and manufacturing needs.
-          </p>
-          <Button asChild size="lg" variant="secondary">
-            <Link href="/register">Create an Account</Link>
-          </Button>
+            <div className="flex flex-col space-y-4 sm:flex-row sm:space-x-4 sm:space-y-0">
+              <Button asChild size="lg" className="bg-white text-orange-600 hover:bg-gray-100">
+                <Link href="/register">
+                  Register Now <ArrowRight className="ml-2 h-5 w-5" />
+                </Link>
+              </Button>
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="border-white text-white hover:bg-white hover:text-orange-600"
+              >
+                <Link href="/contact">Contact Sales</Link>
+              </Button>
+            </div>
+          </div>
         </div>
       </section>
     </div>
-  )
+  );
 }
-

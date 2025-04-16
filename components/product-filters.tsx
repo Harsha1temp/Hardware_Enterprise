@@ -1,112 +1,109 @@
 "use client"
 
 import { useState } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
+import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Label } from "@/components/ui/label"
 import { Slider } from "@/components/ui/slider"
-import { Button } from "@/components/ui/button"
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { Separator } from "@/components/ui/separator"
+
+const categories = [
+  { id: "tools", label: "Tools" },
+  { id: "fasteners", label: "Fasteners" },
+  { id: "electrical", label: "Electrical" },
+  { id: "plumbing", label: "Plumbing" },
+  { id: "safety", label: "Safety Equipment" },
+]
 
 export default function ProductFilters() {
-  const [priceRange, setPriceRange] = useState([0, 500])
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([])
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const [priceRange, setPriceRange] = useState([0, 5000])
 
-  const categories = [
-    { id: "fasteners", label: "Fasteners" },
-    { id: "bearings", label: "Bearings" },
-    { id: "hinges", label: "Hinges" },
-    { id: "pneumatics", label: "Pneumatics" },
-    { id: "hydraulics", label: "Hydraulics" },
-    { id: "automation", label: "Automation" },
-    { id: "gears", label: "Gears" },
-    { id: "tools", label: "Tools" },
-  ]
+  // Get the current category from URL
+  const currentCategory = searchParams.get("category")
 
-  const handleCategoryChange = (category: string) => {
-    setSelectedCategories((prev) =>
-      prev.includes(category) ? prev.filter((c) => c !== category) : [...prev, category],
-    )
+  const handleCategoryChange = (categoryId: string) => {
+    const params = new URLSearchParams(searchParams.toString())
+
+    if (categoryId === currentCategory) {
+      // If clicking the current category, remove the filter
+      params.delete("category")
+    } else {
+      // Otherwise set the new category
+      params.set("category", categoryId)
+    }
+
+    router.push(`/products?${params.toString()}`)
   }
 
-  const handlePriceChange = (value: number[]) => {
-    setPriceRange(value)
+  const handlePriceChange = (values: number[]) => {
+    setPriceRange(values)
   }
 
-  const resetFilters = () => {
-    setPriceRange([0, 500])
-    setSelectedCategories([])
+  const applyPriceFilter = () => {
+    const params = new URLSearchParams(searchParams.toString())
+    params.set("minPrice", priceRange[0].toString())
+    params.set("maxPrice", priceRange[1].toString())
+    router.push(`/products?${params.toString()}`)
+  }
+
+  const clearFilters = () => {
+    router.push("/products")
+    setPriceRange([0, 5000])
   }
 
   return (
     <div className="space-y-6">
       <div>
-        <h3 className="text-lg font-semibold mb-4">Filters</h3>
-        <Button variant="outline" size="sm" onClick={resetFilters}>
-          Reset Filters
-        </Button>
+        <h3 className="mb-4 text-lg font-semibold">Categories</h3>
+        <div className="space-y-3">
+          {categories.map((category) => (
+            <div key={category.id} className="flex items-center space-x-2">
+              <Checkbox
+                id={`category-${category.id}`}
+                checked={currentCategory === category.id}
+                onCheckedChange={() => handleCategoryChange(category.id)}
+              />
+              <Label
+                htmlFor={`category-${category.id}`}
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                {category.label}
+              </Label>
+            </div>
+          ))}
+        </div>
       </div>
 
-      <Accordion type="single" collapsible defaultValue="categories">
-        <AccordionItem value="categories">
-          <AccordionTrigger>Categories</AccordionTrigger>
-          <AccordionContent>
-            <div className="space-y-2">
-              {categories.map((category) => (
-                <div key={category.id} className="flex items-center space-x-2">
-                  <Checkbox
-                    id={category.id}
-                    checked={selectedCategories.includes(category.id)}
-                    onCheckedChange={() => handleCategoryChange(category.id)}
-                  />
-                  <Label htmlFor={category.id} className="cursor-pointer">
-                    {category.label}
-                  </Label>
-                </div>
-              ))}
-            </div>
-          </AccordionContent>
-        </AccordionItem>
+      <Separator />
 
-        <AccordionItem value="price">
-          <AccordionTrigger>Price Range</AccordionTrigger>
-          <AccordionContent>
-            <div className="space-y-4">
-              <Slider
-                defaultValue={[0, 500]}
-                max={500}
-                step={10}
-                value={priceRange}
-                onValueChange={handlePriceChange}
-              />
-              <div className="flex items-center justify-between">
-                <span>${priceRange[0]}</span>
-                <span>${priceRange[1]}</span>
-              </div>
-            </div>
-          </AccordionContent>
-        </AccordionItem>
+      <div>
+        <h3 className="mb-4 text-lg font-semibold">Price Range</h3>
+        <div className="space-y-4">
+          <Slider
+            defaultValue={[0, 5000]}
+            max={10000}
+            step={100}
+            value={priceRange}
+            onValueChange={handlePriceChange}
+          />
+          <div className="flex items-center justify-between">
+            <span>₹{priceRange[0]}</span>
+            <span>₹{priceRange[1]}</span>
+          </div>
+          <Button onClick={applyPriceFilter} className="w-full">
+            Apply
+          </Button>
+        </div>
+      </div>
 
-        <AccordionItem value="availability">
-          <AccordionTrigger>Availability</AccordionTrigger>
-          <AccordionContent>
-            <div className="space-y-2">
-              <div className="flex items-center space-x-2">
-                <Checkbox id="in-stock" />
-                <Label htmlFor="in-stock" className="cursor-pointer">
-                  In Stock
-                </Label>
-              </div>
-              <div className="flex items-center space-x-2">
-                <Checkbox id="out-of-stock" />
-                <Label htmlFor="out-of-stock" className="cursor-pointer">
-                  Out of Stock
-                </Label>
-              </div>
-            </div>
-          </AccordionContent>
-        </AccordionItem>
-      </Accordion>
+      <Separator />
+
+      <Button onClick={clearFilters} variant="outline" className="w-full">
+        Clear Filters
+      </Button>
     </div>
   )
 }
-

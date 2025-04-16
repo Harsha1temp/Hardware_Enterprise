@@ -1,104 +1,207 @@
-import type { Metadata } from "next"
 import Image from "next/image"
-
-export const metadata: Metadata = {
-  title: "About Us | Hardware Enterprise",
-  description: "Learn more about our hardware enterprise and manufacturing unit",
-}
+import { Card, CardContent } from "@/components/ui/card"
+import { CheckCircle, Mail, MapPin, Phone } from "lucide-react"
 
 export default function AboutPage() {
   return (
-    <div className="container mx-auto px-4 py-12">
-      <h1 className="text-3xl font-bold mb-8">About Us</h1>
-
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12 items-center">
-        <div>
-          <h2 className="text-2xl font-semibold mb-4">Our Story</h2>
-          <p className="text-gray-700 mb-4">
-            Founded in 2005, Hardware Enterprise has grown from a small local supplier to a leading manufacturer of
-            high-quality hardware components. Our journey has been driven by a commitment to excellence, innovation, and
-            customer satisfaction.
-          </p>
-          <p className="text-gray-700">
-            Today, we serve clients across various industries, providing both standard and custom hardware solutions
-            that meet the highest standards of quality and reliability.
-          </p>
-        </div>
-        <div className="relative h-[300px] rounded-lg overflow-hidden">
-          <Image src="/placeholder.svg?height=300&width=500" alt="Our factory" fill className="object-cover" />
-        </div>
-      </div>
-
-      <div className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">Our Mission</h2>
-        <p className="text-gray-700">
-          Our mission is to provide high-quality hardware products and manufacturing solutions that help our clients
-          succeed in their respective industries. We strive to combine innovative technology with traditional
-          craftsmanship to deliver products that exceed expectations.
-        </p>
-      </div>
-
-      <div className="mb-12">
-        <h2 className="text-2xl font-semibold mb-4">Our Values</h2>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {[
-            {
-              title: "Quality",
-              description: "We are committed to maintaining the highest standards in all our products and services.",
-            },
-            {
-              title: "Innovation",
-              description: "We continuously explore new technologies and methods to improve our offerings.",
-            },
-            {
-              title: "Integrity",
-              description: "We conduct our business with honesty, transparency, and respect for all stakeholders.",
-            },
-          ].map((value, index) => (
-            <div key={index} className="bg-gray-50 p-6 rounded-lg">
-              <h3 className="text-xl font-semibold mb-2">{value.title}</h3>
-              <p className="text-gray-700">{value.description}</p>
-            </div>
-          ))}
-        </div>
-      </div>
-
-      <div>
-        <h2 className="text-2xl font-semibold mb-4">Our Team</h2>
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
-          {[
-            {
-              name: "John Doe",
-              position: "CEO & Founder",
-              image: "/placeholder.svg?height=200&width=200",
-            },
-            {
-              name: "Jane Smith",
-              position: "Head of Manufacturing",
-              image: "/placeholder.svg?height=200&width=200",
-            },
-            {
-              name: "Robert Johnson",
-              position: "Chief Technology Officer",
-              image: "/placeholder.svg?height=200&width=200",
-            },
-            {
-              name: "Emily Brown",
-              position: "Customer Relations Manager",
-              image: "/placeholder.svg?height=200&width=200",
-            },
-          ].map((member, index) => (
-            <div key={index} className="text-center">
-              <div className="relative h-[200px] w-[200px] mx-auto rounded-full overflow-hidden mb-4">
-                <Image src={member.image || "/placeholder.svg"} alt={member.name} fill className="object-cover" />
+    <div className="container mx-auto px-4 py-8">
+      {/* Hero Section */}
+      <section className="mb-16">
+        <div className="grid gap-8 md:grid-cols-2 md:gap-12">
+          <div>
+            <h1 className="mb-4 text-4xl font-bold tracking-tight sm:text-5xl">About Om Sai Enterprises</h1>
+            <p className="mb-6 text-lg text-muted-foreground">
+              Established in 2005, Om Sai Enterprises has been a trusted name in the hardware industry for over 20
+              years. We pride ourselves on providing high-quality products, exceptional customer service, and
+              competitive pricing.
+            </p>
+            <div className="space-y-4">
+              <div className="flex items-start">
+                <CheckCircle className="mr-2 mt-1 h-5 w-5 text-orange-600" />
+                <div>
+                  <h3 className="font-medium">Quality Assurance</h3>
+                  <p className="text-muted-foreground">
+                    All our products undergo rigorous quality checks to ensure they meet the highest standards.
+                  </p>
+                </div>
               </div>
-              <h3 className="text-lg font-semibold">{member.name}</h3>
-              <p className="text-gray-600">{member.position}</p>
+              <div className="flex items-start">
+                <CheckCircle className="mr-2 mt-1 h-5 w-5 text-orange-600" />
+                <div>
+                  <h3 className="font-medium">Customer Satisfaction</h3>
+                  <p className="text-muted-foreground">
+                    We prioritize customer satisfaction and strive to exceed expectations with every order.
+                  </p>
+                </div>
+              </div>
+              <div className="flex items-start">
+                <CheckCircle className="mr-2 mt-1 h-5 w-5 text-orange-600" />
+                <div>
+                  <h3 className="font-medium">Competitive Pricing</h3>
+                  <p className="text-muted-foreground">
+                    We offer the best prices in the market without compromising on quality.
+                  </p>
+                </div>
+              </div>
             </div>
-          ))}
+          </div>
+          <div className="relative h-[300px] overflow-hidden rounded-lg md:h-auto">
+            <Image
+              src="/logo2.png?height=600&width=800&text=Our+Workshop"
+              alt="Om Sai Enterprises workshop"
+              fill
+              className="object-cover"
+            />
+          </div>
         </div>
-      </div>
+      </section>
+
+      {/* Our Story Section */}
+      <section className="mb-16">
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">Our Story</h2>
+          <p className="mb-8 text-lg text-muted-foreground">
+            Founded by K. Srinivas Reddy in 2005, Om Sai Enterprises began as a small hardware shop in Hyderabad. With a
+            vision to provide quality hardware products at affordable prices, we have grown into a trusted supplier for
+            businesses and individuals across India.
+          </p>
+          <div className="relative mx-auto mb-8 h-[300px] w-full max-w-2xl overflow-hidden rounded-lg">
+            <Image
+              src="/logo2.png?height=600&width=800&text=Our+Journey"
+              alt="Om Sai Enterprises journey"
+              fill
+              className="object-cover"
+            />
+          </div>
+          <p className="text-muted-foreground">
+            Over the years, we have expanded our product range, improved our services, and built strong relationships
+            with our customers and suppliers. Today, we are proud to be one of the leading hardware suppliers in the
+            region, serving thousands of satisfied customers.
+          </p>
+        </div>
+      </section>
+
+      {/* Team Section */}
+      <section className="mb-16">
+        <div className="text-center">
+          <h2 className="mb-4 text-3xl font-bold tracking-tight sm:text-4xl">Our Team</h2>
+          <p className="mx-auto mb-12 max-w-3xl text-lg text-muted-foreground">
+            Meet the dedicated professionals who make Om Sai Enterprises a success. Our team combines years of industry
+            experience with a passion for customer service.
+          </p>
+
+          <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
+            {[
+              {
+                name: "K Srinivas Reddy",
+                role: "Founder & CEO",
+                bio: "With over 25 years of experience in the hardware industry, Rajesh leads our company with vision and expertise.",
+              },
+              {
+                name: "Bhaskhar",
+                role: "Operations Manager",
+                bio: "Bhaskhar ensures smooth day-to-day operations and maintains our high standards of service and delivery.",
+              },
+              {
+                name: "Sainath",
+                role: "Sales Manager",
+                bio: "Sainath leads our sales team with enthusiasm and a deep understanding of customer needs.",
+              },
+            ].map((member, index) => (
+              <Card key={index}>
+                <CardContent className="p-6 text-center">
+                  <div className="mx-auto mb-4 h-32 w-32 overflow-hidden rounded-full bg-gray-200">
+                    <Image
+                      src={`/logo2.png?height=150&width=150&text=${member.name[0]}`}
+                      alt={member.name}
+                      width={150}
+                      height={150}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <h3 className="mb-1 text-xl font-semibold">{member.name}</h3>
+                  <p className="mb-3 text-sm text-orange-600">{member.role}</p>
+                  <p className="text-muted-foreground">{member.bio}</p>
+                </CardContent>
+              </Card>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact Section */}
+      <section className="mb-16">
+        <div className="rounded-lg bg-muted p-8">
+          <div className="grid gap-8 md:grid-cols-2">
+            <div>
+              <h2 className="mb-4 text-3xl font-bold tracking-tight">Contact Us</h2>
+              <p className="mb-6 text-lg text-muted-foreground">
+                Have questions or need assistance? Reach out to us through any of the following channels:
+              </p>
+
+              <div className="space-y-4">
+                <div className="flex items-start">
+                  <MapPin className="mr-3 h-5 w-5 text-orange-600" />
+                  <div>
+                    <h3 className="font-medium">Address</h3>
+                    <p className="text-muted-foreground">
+                    Sy. No. 157/E, Doolapally Village, IDA Jeedimetla, Hyderabad - 500055
+                    </p>
+                  </div>
+                </div>
+
+                <div className="flex items-start">
+                  <Phone className="mr-3 h-5 w-5 text-orange-600" />
+                  <div>
+                    <h3 className="font-medium">Phone</h3>
+                    <p className="text-muted-foreground">+91 90109 85402</p>
+                  </div>
+                </div>
+
+                <div className="flex items-start">
+                  <Mail className="mr-3 h-5 w-5 text-orange-600" />
+                  <div>
+                    <h3 className="font-medium">Email</h3>
+                    <p className="text-muted-foreground">omsai5402@gmail.com</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div className="relative h-[300px] overflow-hidden rounded-lg md:h-auto">
+              <Image
+                src="/logo2.png?height=600&width=800&text=Location+Map"
+                alt="Om Sai Enterprises location"
+                fill
+                className="object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Business Hours */}
+      <section>
+        <div className="mx-auto max-w-3xl text-center">
+          <h2 className="mb-4 text-3xl font-bold tracking-tight">Business Hours</h2>
+          <p className="mb-8 text-lg text-muted-foreground">Visit our store during the following hours:</p>
+
+          <div className="mx-auto max-w-md">
+            <div className="rounded-lg border">
+              {[
+                { day: "Monday - Friday", hours: "9:00 AM - 7:00 PM" },
+                { day: "Saturday", hours: "10:00 AM - 5:00 PM" },
+                { day: "Sunday", hours: "Closed" },
+              ].map((schedule, index, arr) => (
+                <div key={index} className={`flex justify-between p-4 ${index !== arr.length - 1 ? "border-b" : ""}`}>
+                  <span className="font-medium">{schedule.day}</span>
+                  <span>{schedule.hours}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   )
 }
-
